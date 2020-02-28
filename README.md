@@ -3,7 +3,9 @@
 ElasticWriter implements an io.Writer that writes to [ElasticSearch](https://www.elastic.co/products/elasticsearch).
 
 [![Build
-Status](https://travis-ci.com/jellehelsen/elasticwriter.svg?branch=develop)](https://travis-ci.com/jellehelsen/elasticwriter) [![Go Report Card](https://goreportcard.com/badge/github.com/jellehelsen/elasticwriter)](https://goreportcard.com/report/github.com/jellehelsen/elasticwriter)
+Status](https://travis-ci.com/jellehelsen/elasticwriter.svg?branch=develop)](https://travis-ci.com/jellehelsen/elasticwriter)
+[![Go Report
+Card](https://goreportcard.com/badge/github.com/jellehelsen/elasticwriter)](https://goreportcard.com/report/github.com/jellehelsen/elasticwriter) [![GoDoc](https://godoc.org/github.com/jellehelsen/elasticwriter?status.svg)](https://godoc.org/github.com/jellehelsen/elasticwriter)
 
 ## Installation
 

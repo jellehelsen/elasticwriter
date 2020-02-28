@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// ElasticWriter implements io.Writer while writing to elasticsearch
 type ElasticWriter struct {
 	*elasticsearch.Client
 	Index string
@@ -17,6 +18,15 @@ type elasticLogLine struct {
 	Message   string    `json:"message"`
 }
 
+// New creates a new writer
+//
+// It will use http://localhost:9200 as the default elasticsearch address.
+//
+// It will use the ELASTICSEARCH_URL environment variable, if set,
+// to configure the addresses; use a comma to separate multiple URLs.
+//
+// index is the name of the elasticsearch index to write to
+//
 func New(index string) (*ElasticWriter, error) {
 	es7, err := elasticsearch.NewDefaultClient()
 	if err != nil {

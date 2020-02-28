@@ -52,3 +52,14 @@ func TestWrite(t *testing.T) {
 		"message": "hello"
 	}`)
 }
+
+func Example() {
+	writer, err := elasticwriter.New("index")
+	if err != nil {
+		panic(err)
+	}
+	_, err = writer.Write([]byte("Hello World!"))
+	if err != nil {
+		panic(err)
+	}
+}
