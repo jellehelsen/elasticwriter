@@ -2,6 +2,7 @@ package elasticwriter
 
 import (
 	"bytes"
+	"strings"
 	"encoding/json"
 	"github.com/elastic/go-elasticsearch/v7"
 	"time"
@@ -36,14 +37,20 @@ func New(index string) (*ElasticWriter, error) {
 }
 
 func (ew *ElasticWriter) Write(data []byte) (int, error) {
-	logline := elasticLogLine{time.Now(), string(data)}
-	payload, err := json.Marshal(logline)
-	if err != nil {
-		return 0, err
+	bytesWritten := 0
+	for _, line := range(strings.Split(string(data), "\n")) {
+		logline := elasticLogLine{time.Now(), line}
+		payload, err := json.Marshal(logline)
+		if err != nil {
+			return 0, err
+		}
+		_, err = ew.Client.Index(ew.Index, bytes.NewReader(payload))
+		if err != nil {
+			return bytesWritten, err
+		}
+		bytesWritten += len(line)
 	}
-	_, err = ew.Client.Index(ew.Index, bytes.NewReader(payload))
-	if err != nil {
-		return 0, err
-	}
-	return len(data), nil
+	// Add the newlines we've stripped
+	bytesWritten += strings.Count(string(data), "\n")
+	return bytesWritten, nil
 }
